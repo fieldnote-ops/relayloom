@@ -1,6 +1,6 @@
 {
   "name": "relayloom",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "description": "A default-off external chat relay for agent harnesses; its first compatibility adapter targets DingTalk Stream.",
   "type": "module",
@@ -15,6 +15,7 @@
     "plugin.js",
     "dsh-agent-adapter.js",
     "official-stream-adapter.js",
+    "tenant-smoke.js",
     "webhook-transport.js",
     "cordis.patch.yml",
     "README.md",
@@ -24,7 +25,8 @@
   ],
   "scripts": {
     "test": "node --test test/*.test.js",
-    "check": "npm test && npm pack --dry-run"
+    "check": "npm test && npm pack --dry-run",
+    "tenant:smoke": "node tenant-smoke.js"
   },
   "engines": {
     "node": "^22.19.0 || >=24.0.0"

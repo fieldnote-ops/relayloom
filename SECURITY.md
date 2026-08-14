@@ -24,4 +24,6 @@ When enabled, the official SDK connects to DingTalk and RelayLoom posts replies 
 
 Do not open a public issue containing credentials, session webhooks, tenant ids, staff ids, message payloads, or private model output. Report security concerns privately through the GitHub repository security advisory interface after publication.
 
+The opt-in tenant smoke probe accepts credentials only from the process environment and creates a new `0600` report without raw tenant identifiers or message content. It refuses to overwrite prior evidence. The printed random challenge is not a credential, but operators should still run the probe in a private terminal and remove credentials from the process environment immediately afterward.
+
 No independent security audit has been completed.

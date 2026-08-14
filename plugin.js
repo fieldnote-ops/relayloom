@@ -113,8 +113,12 @@ export async function mountDingTalkBridge(ctx, inputConfig = {}, dependencies = 
   })
   try {
     await client.connect()
+    if (client.connected === false) {
+      throw new Error('DingTalk Stream connection did not become ready')
+    }
   } catch (error) {
     binding.dispose()
+    client.disconnect()
     await dsh.dispose()
     throw error
   }

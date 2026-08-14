@@ -18,6 +18,18 @@ RelayLoom 是一个独立、默认关闭的外部聊天中继。首个兼容适�
 
 文字审批是安全回退协议，不代表交互式审批卡已经可用。卡片渲染/更新、附件、重连重放和真实租户闭环仍待验证。
 
+## 真实租户传输探针
+
+0.2.1 提供一个显式启用的探针，在不调用模型或 DSH Agent 的前提下补齐传输证据。它只等待一个已配置 staff 账号发来的随机挑战，立即 ACK Stream 回调，发送一条有界 `sessionWebhook` 回复，并新建权限为 `0600` 的 JSON 报告。报告不记录凭据、原始 staff id、会话 id、消息 id、Webhook 或消息正文。
+
+在进程环境中设置 `DINGTALK_CLIENT_ID`、`DINGTALK_CLIENT_SECRET`、`RELAYLOOM_ALLOWED_USER`，然后运行：
+
+```sh
+npm run tenant:smoke
+```
+
+从该 staff 账号向企业内部机器人发送进程打印的精确随机挑战。默认等待 180 秒；可用 `RELAYLOOM_PROBE_REPORT` 指定新的工作区相对报告路径，已有报告绝不会被覆盖。该命令会真实访问钉钉，但安装、DSH 启动、测试和 CI 都不会自动运行它。
+
 ## 从 GitHub 安装
 
 DeepSeek Harness 仍处于 Developer Preview，建议审阅后固定 RelayLoom 的完整提交 SHA：
@@ -44,7 +56,7 @@ RelayLoom 不从 YAML 读取凭据；启用时空白名单会直接拒绝启动�
 
 ## 证据边界
 
-本地测试覆盖协议规范化、ACK 顺序、去重、串行化、DSH 会话创建/恢复、已提交输出、取消、审批身份绑定、Webhook SSRF 防护和默认关闭生命周期。HarnessProof v0.1.5 在隔离副本中安装精确锁定依赖，通过官方 DSH 命令加入插件，观察到 bundle 层，启动 DSH `0.1.0-rc.6` 并收到 HTTP 200；全过程不需要凭据，也不访问外部服务。
+本地测试覆盖协议规范化、ACK 顺序、去重、串行化、DSH 会话创建/恢复、已提交输出、取消、审批身份绑定、Webhook SSRF 防护和默认关闭生命周期。HarnessProof v0.1.5 在隔离副本中安装精确锁定依赖，通过官方 DSH 命令加入插件，观察到 bundle 层，启动 DSH `0.1.0-rc.6` 并收到 HTTP 200；全过程不需要凭据，也不访问外部服务。真实租户探针是另一个显式网络操作，不能从 HarnessProof 结果推断其成功。
 
 这些证据不证明真实钉钉机器人、审批卡行为、独立安全审计、陌生用户采用、Marketplace 接受、购买或收入。
 

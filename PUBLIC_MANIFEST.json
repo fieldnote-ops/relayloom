@@ -6,18 +6,18 @@
       "target_path": "LICENSE"
     },
     "README.md": {
-      "bytes": 3552,
-      "sha256": "9dde34f12607a80113afcf84455409e126a7b9d0c77cbe0da025d160007dbd7e",
+      "bytes": 4600,
+      "sha256": "b77af4144c2a9bb51c55aa3bdbef079abdb4b4858da26f1e1d6bdd59eaa47ff9",
       "target_path": "README.md"
     },
     "README.zh-CN.md": {
-      "bytes": 2949,
-      "sha256": "3ddcf7b06c4613c24bc8dea8fd7998c1616d1cd0896f411259f48e57ead7ee0e",
+      "bytes": 3923,
+      "sha256": "325d0f697f795bdf8a7091782b1ed5d0c8efc41b556c038d698825c1bd453d83",
       "target_path": "README.zh-CN.md"
     },
     "SECURITY.md": {
-      "bytes": 1703,
-      "sha256": "97e8f47da53c7c0c7fcb7b65365ad3a32154784d24ad302b7ca4e217ee4b86c8",
+      "bytes": 2099,
+      "sha256": "42e55273f6f921e8547aab5620894e5d76b227bfe3ad869d17d8672d645b2835",
       "target_path": "SECURITY.md"
     },
     "cordis.patch.yml": {
@@ -47,18 +47,23 @@
     },
     "package-lock.json": {
       "bytes": 26560,
-      "sha256": "f78ca5fbe503a4e6c7723ca4b425e28d855ead730aa8ba4253710d6211e7c376",
+      "sha256": "9774b59af87b935588999b261787590abb4e2bd7dea9b8b4c1d13ac754d4866a",
       "target_path": "package-lock.json"
     },
     "package.json": {
-      "bytes": 1652,
-      "sha256": "0ceb9a7dd9414944d35128fc4ac3bfc335a002efa8cbb87425595d13576baf5e",
+      "bytes": 1719,
+      "sha256": "5175dc61a54cb94c5a4539789a2293bbdd90eb238b361a8e1da4ab8a7363a59a",
       "target_path": "package.json"
     },
     "plugin.js": {
-      "bytes": 5615,
-      "sha256": "b329845940991a00d86850c82d47f27b78347fe0a2ad379e90b4417ace691093",
+      "bytes": 5756,
+      "sha256": "f0862a930fc252503662b65e0bca5f287eebdaae7c84133511c5da6ffc9b951e",
       "target_path": "plugin.js"
+    },
+    "tenant-smoke.js": {
+      "bytes": 8972,
+      "sha256": "29acb011013e943adc0084b930584439d6b12232f1762d952c5546dbfab02570",
+      "target_path": "tenant-smoke.js"
     },
     "test/approval.test.js": {
       "bytes": 2530,
@@ -81,9 +86,14 @@
       "target_path": "test/official-stream-adapter.test.js"
     },
     "test/plugin.test.js": {
-      "bytes": 706,
-      "sha256": "11f90579b313729cab3ea2e0dca2a8486f4a18e85c5ef34e3edbabffc87793c4",
+      "bytes": 1694,
+      "sha256": "d1ac846bf329e35d3f3d097ea1ee1fc3bd4bbcbd205e66157b1b8e2b3ac925ae",
       "target_path": "test/plugin.test.js"
+    },
+    "test/tenant-smoke.test.js": {
+      "bytes": 4828,
+      "sha256": "741511135f6409b0ee1a1888e15c348dea3afdf927aa7daac39239c39207c63c",
+      "target_path": "test/tenant-smoke.test.js"
     },
     "test/webhook-transport.test.js": {
       "bytes": 2544,
@@ -100,5 +110,5 @@
   "public_identity": "FIELD NOTE",
   "repository": "fieldnote-ops/relayloom",
   "schema_version": 1,
-  "version": "0.2.0"
+  "version": "0.2.1"
 }
