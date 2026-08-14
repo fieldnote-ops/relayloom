@@ -1,0 +1,104 @@
+{
+  "files": {
+    "LICENSE": {
+      "bytes": 1067,
+      "sha256": "d6409fc30d7a7499f1e9843c41adb84bd89a16fe67fbf3d920c56c387e2c7208",
+      "target_path": "LICENSE"
+    },
+    "README.md": {
+      "bytes": 3552,
+      "sha256": "9dde34f12607a80113afcf84455409e126a7b9d0c77cbe0da025d160007dbd7e",
+      "target_path": "README.md"
+    },
+    "README.zh-CN.md": {
+      "bytes": 2949,
+      "sha256": "3ddcf7b06c4613c24bc8dea8fd7998c1616d1cd0896f411259f48e57ead7ee0e",
+      "target_path": "README.zh-CN.md"
+    },
+    "SECURITY.md": {
+      "bytes": 1703,
+      "sha256": "97e8f47da53c7c0c7fcb7b65365ad3a32154784d24ad302b7ca4e217ee4b86c8",
+      "target_path": "SECURITY.md"
+    },
+    "cordis.patch.yml": {
+      "bytes": 89,
+      "sha256": "81822e90b2311036124b618e6496cbee72260741bf9ac8b6c83ffbe8f2447ba5",
+      "target_path": "cordis.patch.yml"
+    },
+    "dsh-agent-adapter.js": {
+      "bytes": 7663,
+      "sha256": "418d606fc651ac177ce28a860f5bd5a27d57f79bcd3da620b12a6af8c7c47b33",
+      "target_path": "dsh-agent-adapter.js"
+    },
+    "github/workflows/self-test.yml": {
+      "bytes": 1165,
+      "sha256": "91834327b34da10f45bebbe30f368dee709e2e7abb3302b3a1b65a6989825a24",
+      "target_path": ".github/workflows/self-test.yml"
+    },
+    "index.js": {
+      "bytes": 9987,
+      "sha256": "e33a3b0e0dd91c78b02f568c6a69e8370a82f0f596747b9cc3f651937768a352",
+      "target_path": "index.js"
+    },
+    "official-stream-adapter.js": {
+      "bytes": 2297,
+      "sha256": "9264aa83f8060d8d3e1db6f40a4728bb3ed04572931d2cf3bf5ad8134c348d74",
+      "target_path": "official-stream-adapter.js"
+    },
+    "package-lock.json": {
+      "bytes": 26560,
+      "sha256": "f78ca5fbe503a4e6c7723ca4b425e28d855ead730aa8ba4253710d6211e7c376",
+      "target_path": "package-lock.json"
+    },
+    "package.json": {
+      "bytes": 1652,
+      "sha256": "0ceb9a7dd9414944d35128fc4ac3bfc335a002efa8cbb87425595d13576baf5e",
+      "target_path": "package.json"
+    },
+    "plugin.js": {
+      "bytes": 5615,
+      "sha256": "b329845940991a00d86850c82d47f27b78347fe0a2ad379e90b4417ace691093",
+      "target_path": "plugin.js"
+    },
+    "test/approval.test.js": {
+      "bytes": 2530,
+      "sha256": "3f71967d5ba72d2c83fdf94b48766dfee73e64f76bc0df038e55411bb475bffb",
+      "target_path": "test/approval.test.js"
+    },
+    "test/core.test.js": {
+      "bytes": 5246,
+      "sha256": "85d339b8148b8199e37bafee06a22e25fc25c7d6e1e825278c0580d048accda9",
+      "target_path": "test/core.test.js"
+    },
+    "test/dsh-agent-adapter.test.js": {
+      "bytes": 6642,
+      "sha256": "60a1d61a0e80be08a3c57e03b8178c4b23b79560586757c0cedab0957b998360",
+      "target_path": "test/dsh-agent-adapter.test.js"
+    },
+    "test/official-stream-adapter.test.js": {
+      "bytes": 3274,
+      "sha256": "91a1f099a83106ebb607ac2b6ac34f249ccb5411c507c35eb863eaa0c78076d6",
+      "target_path": "test/official-stream-adapter.test.js"
+    },
+    "test/plugin.test.js": {
+      "bytes": 706,
+      "sha256": "11f90579b313729cab3ea2e0dca2a8486f4a18e85c5ef34e3edbabffc87793c4",
+      "target_path": "test/plugin.test.js"
+    },
+    "test/webhook-transport.test.js": {
+      "bytes": 2544,
+      "sha256": "e479fa2ddfcdaf2941699bd698ec4fe511ece2f41023af1b66eebfdd78078439",
+      "target_path": "test/webhook-transport.test.js"
+    },
+    "webhook-transport.js": {
+      "bytes": 3969,
+      "sha256": "52da2fd299f197af9b9e3dff1804f370f7d6683f1e16b958e99e0e6fbc73d768",
+      "target_path": "webhook-transport.js"
+    }
+  },
+  "product": "RelayLoom",
+  "public_identity": "FIELD NOTE",
+  "repository": "fieldnote-ops/relayloom",
+  "schema_version": 1,
+  "version": "0.2.0"
+}
