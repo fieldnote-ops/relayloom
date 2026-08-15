@@ -20,9 +20,17 @@ The text approval flow is a safe fallback, not a claim that interactive approval
 
 ## Live tenant transport probe
 
-Version 0.2.1 includes an explicit opt-in probe for closing the remaining transport evidence gap without calling a model or DSH agent. It waits for one random challenge from one configured staff account, immediately ACKs the Stream callback, sends a bounded `sessionWebhook` reply, and creates a new `0600` JSON report that contains no credentials, raw staff id, conversation id, message id, webhook, or message body.
+Version 0.2.2 includes an explicit opt-in probe for closing the remaining transport evidence gap without calling a model or DSH agent. It waits for one random challenge from one configured staff account, immediately ACKs the Stream callback, sends a bounded `sessionWebhook` reply, and creates a new `0600` JSON report that contains no credentials, raw staff id, conversation id, message id, webhook, or message body.
 
-Set `DINGTALK_CLIENT_ID`, `DINGTALK_CLIENT_SECRET`, and `RELAYLOOM_ALLOWED_USER` in the process environment, then run:
+Clone the repository and install its locked dependencies without lifecycle scripts:
+
+```sh
+git clone https://github.com/fieldnote-ops/relayloom.git
+cd relayloom
+npm ci --ignore-scripts --registry=https://registry.npmjs.org
+```
+
+Set `DINGTALK_CLIENT_ID`, `DINGTALK_CLIENT_SECRET`, and `RELAYLOOM_ALLOWED_USER` in the process environment without placing the secret in a committed file or shell-history command, then run:
 
 ```sh
 npm run tenant:smoke
@@ -32,13 +40,13 @@ Send the exact random challenge printed by the process to the internal robot. Th
 
 ## Install from GitHub
 
-During the DeepSeek Harness developer preview, review and pin a full RelayLoom commit rather than relying on a moving branch:
+For a copy-pasteable install, pin the last publicly verified runtime commit rather than relying on a moving branch:
 
 ```sh
-dsh plugin --profile web add github:fieldnote-ops/relayloom#FULL_COMMIT_SHA
+dsh plugin --profile web add github:fieldnote-ops/relayloom#04338f0f8ef33ba508768ab5026d758d81a10e0a
 ```
 
-The installed bundle remains disabled. Edit its profile row only after creating a DingTalk internal robot and setting credentials in the launching environment:
+That commit passed the public Node 24 unit job and DSH rc.6/latest/next consumer matrix. The installed bundle remains disabled. Edit its profile row only after creating a DingTalk internal robot and setting credentials in the launching environment:
 
 ```yaml
 - id: relayloom

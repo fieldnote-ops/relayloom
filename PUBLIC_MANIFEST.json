@@ -6,13 +6,13 @@
       "target_path": "LICENSE"
     },
     "README.md": {
-      "bytes": 4600,
-      "sha256": "b77af4144c2a9bb51c55aa3bdbef079abdb4b4858da26f1e1d6bdd59eaa47ff9",
+      "bytes": 5004,
+      "sha256": "d48bbed19c492f33fe55097334e17a6110afd3b3903f416f60596e2cc9ac89e2",
       "target_path": "README.md"
     },
     "README.zh-CN.md": {
-      "bytes": 3923,
-      "sha256": "325d0f697f795bdf8a7091782b1ed5d0c8efc41b556c038d698825c1bd453d83",
+      "bytes": 4368,
+      "sha256": "02a78a02188f87c8c62230e3be116b8883fc5458b2a7dda62f3362405cb284c9",
       "target_path": "README.zh-CN.md"
     },
     "SECURITY.md": {
@@ -47,12 +47,12 @@
     },
     "package-lock.json": {
       "bytes": 26560,
-      "sha256": "9774b59af87b935588999b261787590abb4e2bd7dea9b8b4c1d13ac754d4866a",
+      "sha256": "5c76ca87513b4176de0e2b1134358556842258f33437fea01c6ce251ed685d7c",
       "target_path": "package-lock.json"
     },
     "package.json": {
       "bytes": 1719,
-      "sha256": "5175dc61a54cb94c5a4539789a2293bbdd90eb238b361a8e1da4ab8a7363a59a",
+      "sha256": "91e927dca8d5d977841a7a40875dea00de09ab6c3483fc694a3b6ecdaa18ba49",
       "target_path": "package.json"
     },
     "plugin.js": {
@@ -62,7 +62,7 @@
     },
     "tenant-smoke.js": {
       "bytes": 8972,
-      "sha256": "29acb011013e943adc0084b930584439d6b12232f1762d952c5546dbfab02570",
+      "sha256": "be7830a27e3d7e43eebb6d3d8f3d89822723da587ad6ef1a2d910b44cd861064",
       "target_path": "tenant-smoke.js"
     },
     "test/approval.test.js": {
@@ -110,5 +110,5 @@
   "public_identity": "FIELD NOTE",
   "repository": "fieldnote-ops/relayloom",
   "schema_version": 1,
-  "version": "0.2.1"
+  "version": "0.2.2"
 }

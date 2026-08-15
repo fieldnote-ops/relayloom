@@ -180,7 +180,7 @@ export async function runTenantSmoke(config, dependencies = {}) {
       schemaVersion: 1,
       decision: 'pass',
       product: 'RelayLoom',
-      version: '0.2.1',
+      version: '0.2.2',
       protocol: 'DingTalk Stream robot callback plus sessionWebhook reply',
       checks: {
         streamConnected: true,

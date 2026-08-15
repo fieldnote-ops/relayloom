@@ -20,9 +20,17 @@ RelayLoom 是一个独立、默认关闭的外部聊天中继。首个兼容适�
 
 ## 真实租户传输探针
 
-0.2.1 提供一个显式启用的探针，在不调用模型或 DSH Agent 的前提下补齐传输证据。它只等待一个已配置 staff 账号发来的随机挑战，立即 ACK Stream 回调，发送一条有界 `sessionWebhook` 回复，并新建权限为 `0600` 的 JSON 报告。报告不记录凭据、原始 staff id、会话 id、消息 id、Webhook 或消息正文。
+0.2.2 提供一个显式启用的探针，在不调用模型或 DSH Agent 的前提下补齐传输证据。它只等待一个已配置 staff 账号发来的随机挑战，立即 ACK Stream 回调，发送一条有界 `sessionWebhook` 回复，并新建权限为 `0600` 的 JSON 报告。报告不记录凭据、原始 staff id、会话 id、消息 id、Webhook 或消息正文。
 
-在进程环境中设置 `DINGTALK_CLIENT_ID`、`DINGTALK_CLIENT_SECRET`、`RELAYLOOM_ALLOWED_USER`，然后运行：
+先克隆仓库，并在禁用生命周期脚本的情况下安装锁定依赖：
+
+```sh
+git clone https://github.com/fieldnote-ops/relayloom.git
+cd relayloom
+npm ci --ignore-scripts --registry=https://registry.npmjs.org
+```
+
+在进程环境中设置 `DINGTALK_CLIENT_ID`、`DINGTALK_CLIENT_SECRET`、`RELAYLOOM_ALLOWED_USER`；不要把 secret 写入已提交文件或会进入 shell 历史的命令。然后运行：
 
 ```sh
 npm run tenant:smoke
@@ -32,13 +40,13 @@ npm run tenant:smoke
 
 ## 从 GitHub 安装
 
-DeepSeek Harness 仍处于 Developer Preview，建议审阅后固定 RelayLoom 的完整提交 SHA：
+为保证命令可以直接复制，请固定到最近一次完成公开验证的运行时提交，不要依赖移动分支：
 
 ```sh
-dsh plugin --profile web add github:fieldnote-ops/relayloom#FULL_COMMIT_SHA
+dsh plugin --profile web add github:fieldnote-ops/relayloom#04338f0f8ef33ba508768ab5026d758d81a10e0a
 ```
 
-安装后仍默认关闭。创建钉钉企业内部机器人、并在启动环境设置凭据后，才修改 profile：
+该提交已经通过公开 Node 24 单元任务以及 DSH rc.6/latest/next consumer matrix。安装后仍默认关闭。创建钉钉企业内部机器人、并在启动环境设置凭据后，才修改 profile：
 
 ```yaml
 - id: relayloom
