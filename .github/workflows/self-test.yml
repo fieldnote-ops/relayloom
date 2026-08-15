@@ -40,7 +40,7 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
           node-version: '24'
-      - uses: fieldnote-ops/harnessproof@d8563691339de0caf5a4d1261729b0b4864cd983
+      - uses: fieldnote-ops/harnessproof@2b7a246ab595313366cd9806380c3ff0fd6264c9
         with:
           plugin_path: .
           dsh_version: ${{ matrix.dsh }}

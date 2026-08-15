@@ -1,6 +1,6 @@
 {
   "name": "relayloom",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "private": true,
   "description": "A default-off external chat relay for agent harnesses; its first compatibility adapter targets DingTalk Stream.",
   "type": "module",

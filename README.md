@@ -1,8 +1,21 @@
 # RelayLoom
 
+[![Self-test](https://github.com/fieldnote-ops/relayloom/actions/workflows/self-test.yml/badge.svg?branch=main)](https://github.com/fieldnote-ops/relayloom/actions/workflows/self-test.yml)
+
 RelayLoom is an independent, default-off external chat relay for agent harnesses. Its first compatibility adapter connects the public DingTalk Stream protocol to DeepSeek Harness agents.
 
 This repository is a developer preview, not a verified production bot. The credential-free core, official SDK binding, webhook transport, and real DSH install/boot path are tested; no real DingTalk tenant has yet completed the receive → ACK → reply round trip.
+
+## More than a notification webhook
+
+| Surface | Implemented boundary |
+| --- | --- |
+| Direction | Receives DingTalk Stream callbacks and sends bounded `sessionWebhook` replies; it is not limited to one-way group notifications. |
+| Callback ordering | ACK is sent before asynchronous agent work settles; retries are deduplicated by `msgId`. |
+| Conversation isolation | Sessions are isolated by sender and conversation, while durable ids are deterministic and do not expose raw tenant identifiers. |
+| Approval fallback | `/approve` and `/reject` decisions are single-use, expiring, and bound to the original sender and conversation. Interactive cards are not claimed. |
+| Default safety | The bundle ships disabled, requires a non-empty staff-id allowlist when enabled, reads credentials only from named environment variables, and rejects unsafe webhook destinations and redirects. |
+| Evidence gap | Credential-free tests and DSH rc.6/`latest`/`next` consumers pass. A real tenant receive → ACK → reply round trip has **not** yet passed. |
 
 ## What is implemented
 
@@ -20,7 +33,7 @@ The text approval flow is a safe fallback, not a claim that interactive approval
 
 ## Live tenant transport probe
 
-Version 0.2.2 includes an explicit opt-in probe for closing the remaining transport evidence gap without calling a model or DSH agent. It waits for one random challenge from one configured staff account, immediately ACKs the Stream callback, sends a bounded `sessionWebhook` reply, and creates a new `0600` JSON report that contains no credentials, raw staff id, conversation id, message id, webhook, or message body.
+Version 0.2.3 includes an explicit opt-in probe for closing the remaining transport evidence gap without calling a model or DSH agent. It waits for one random challenge from one configured staff account, immediately ACKs the Stream callback, sends a bounded `sessionWebhook` reply, and creates a new `0600` JSON report that contains no credentials, raw staff id, conversation id, message id, webhook, or message body.
 
 Clone the repository and install its locked dependencies without lifecycle scripts:
 
@@ -43,7 +56,7 @@ Send the exact random challenge printed by the process to the internal robot. Th
 For a copy-pasteable install, pin the last publicly verified runtime commit rather than relying on a moving branch:
 
 ```sh
-dsh plugin --profile web add github:fieldnote-ops/relayloom#04338f0f8ef33ba508768ab5026d758d81a10e0a
+dsh plugin --profile web add github:fieldnote-ops/relayloom#e789dded22a6eeb00bddde0d06e47d15e23eced6
 ```
 
 That commit passed the public Node 24 unit job and DSH rc.6/latest/next consumer matrix. The installed bundle remains disabled. Edit its profile row only after creating a DingTalk internal robot and setting credentials in the launching environment:
@@ -64,7 +77,7 @@ RelayLoom does not read credentials from YAML. Empty allowlists are rejected whe
 
 ## Evidence
 
-Local tests cover protocol normalization, ACK ordering, deduplication, serialization, DSH session create/resume, committed output, cancellation, approval actor binding, webhook SSRF defenses, and default-off lifecycle. HarnessProof v0.1.5 installed the exact locked dependency graph in an isolated copy, added the plugin through the official DSH command, observed the bundle layer, booted DSH `0.1.0-rc.6`, and received HTTP 200 without credentials or external service calls. The live tenant probe is a separate, explicit network action and its result must not be inferred from HarnessProof.
+Local tests cover protocol normalization, ACK ordering, deduplication, serialization, DSH session create/resume, committed output, cancellation, approval actor binding, webhook SSRF defenses, and default-off lifecycle. HarnessProof v0.1.6 installed the exact locked dependency graph in an isolated copy, added the plugin through the official DSH command, observed the bundle layer, booted DSH `0.1.0-rc.6`, and received HTTP 200 without credentials or external service calls. The live tenant probe is a separate, explicit network action and its result must not be inferred from HarnessProof.
 
 This does **not** prove a live DingTalk robot, card approval behavior, independent security review, independent-user adoption, Marketplace acceptance, purchase, or income.
 

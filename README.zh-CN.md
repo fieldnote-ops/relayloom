@@ -1,8 +1,21 @@
 # RelayLoom
 
+[![Self-test](https://github.com/fieldnote-ops/relayloom/actions/workflows/self-test.yml/badge.svg?branch=main)](https://github.com/fieldnote-ops/relayloom/actions/workflows/self-test.yml)
+
 RelayLoom 是一个独立、默认关闭的外部聊天中继。首个兼容适配器把钉钉 Stream 公共协议接入 DeepSeek Harness Agent。
 
 当前仓库属于开发者预览，不能宣称为已验证的生产机器人：无凭据协议核心、官方 SDK 绑定、Webhook 出站传输和真实 DSH 安装/启动已经过测试；但尚未在真实钉钉租户中完成“接收 → ACK → 回复”闭环。
+
+## 不只是通知 Webhook
+
+| 维度 | 已实现边界 |
+| --- | --- |
+| 方向 | 接收钉钉 Stream 回调并发送有界 `sessionWebhook` 回复，不局限于单向群通知。 |
+| 回调顺序 | 异步 Agent 任务结束前先 ACK；按 `msgId` 去重重试。 |
+| 会话隔离 | 会话按发送者和 conversation 隔离；持久化 id 确定且不暴露原始租户标识。 |
+| 审批回退 | `/approve`、`/reject` 一次性、会过期，并绑定原发送者与 conversation；不宣称交互式卡片已实现。 |
+| 默认安全 | bundle 默认关闭；启用时要求非空 staff-id 白名单；凭据只从指定环境变量读取；拒绝不安全 Webhook 目标和重定向。 |
+| 证据缺口 | 无凭据测试与 DSH rc.6/`latest`/`next` consumer 已通过；真实租户“接收 → ACK → 回复”仍**未**通过。 |
 
 ## 已实现
 
@@ -20,7 +33,7 @@ RelayLoom 是一个独立、默认关闭的外部聊天中继。首个兼容适�
 
 ## 真实租户传输探针
 
-0.2.2 提供一个显式启用的探针，在不调用模型或 DSH Agent 的前提下补齐传输证据。它只等待一个已配置 staff 账号发来的随机挑战，立即 ACK Stream 回调，发送一条有界 `sessionWebhook` 回复，并新建权限为 `0600` 的 JSON 报告。报告不记录凭据、原始 staff id、会话 id、消息 id、Webhook 或消息正文。
+0.2.3 提供一个显式启用的探针，在不调用模型或 DSH Agent 的前提下补齐传输证据。它只等待一个已配置 staff 账号发来的随机挑战，立即 ACK Stream 回调，发送一条有界 `sessionWebhook` 回复，并新建权限为 `0600` 的 JSON 报告。报告不记录凭据、原始 staff id、会话 id、消息 id、Webhook 或消息正文。
 
 先克隆仓库，并在禁用生命周期脚本的情况下安装锁定依赖：
 
@@ -43,7 +56,7 @@ npm run tenant:smoke
 为保证命令可以直接复制，请固定到最近一次完成公开验证的运行时提交，不要依赖移动分支：
 
 ```sh
-dsh plugin --profile web add github:fieldnote-ops/relayloom#04338f0f8ef33ba508768ab5026d758d81a10e0a
+dsh plugin --profile web add github:fieldnote-ops/relayloom#e789dded22a6eeb00bddde0d06e47d15e23eced6
 ```
 
 该提交已经通过公开 Node 24 单元任务以及 DSH rc.6/latest/next consumer matrix。安装后仍默认关闭。创建钉钉企业内部机器人、并在启动环境设置凭据后，才修改 profile：
@@ -64,7 +77,7 @@ RelayLoom 不从 YAML 读取凭据；启用时空白名单会直接拒绝启动�
 
 ## 证据边界
 
-本地测试覆盖协议规范化、ACK 顺序、去重、串行化、DSH 会话创建/恢复、已提交输出、取消、审批身份绑定、Webhook SSRF 防护和默认关闭生命周期。HarnessProof v0.1.5 在隔离副本中安装精确锁定依赖，通过官方 DSH 命令加入插件，观察到 bundle 层，启动 DSH `0.1.0-rc.6` 并收到 HTTP 200；全过程不需要凭据，也不访问外部服务。真实租户探针是另一个显式网络操作，不能从 HarnessProof 结果推断其成功。
+本地测试覆盖协议规范化、ACK 顺序、去重、串行化、DSH 会话创建/恢复、已提交输出、取消、审批身份绑定、Webhook SSRF 防护和默认关闭生命周期。HarnessProof v0.1.6 在隔离副本中安装精确锁定依赖，通过官方 DSH 命令加入插件，观察到 bundle 层，启动 DSH `0.1.0-rc.6` 并收到 HTTP 200；全过程不需要凭据，也不访问外部服务。真实租户探针是另一个显式网络操作，不能从 HarnessProof 结果推断其成功。
 
 这些证据不证明真实钉钉机器人、审批卡行为、独立安全审计、陌生用户采用、Marketplace 接受、购买或收入。
 
