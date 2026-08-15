@@ -35,6 +35,8 @@ The text approval flow is a safe fallback, not a claim that interactive approval
 
 Version 0.2.3 includes an explicit opt-in probe for closing the remaining transport evidence gap without calling a model or DSH agent. It waits for one random challenge from one configured staff account, immediately ACKs the Stream callback, sends a bounded `sessionWebhook` reply, and creates a new `0600` JSON report that contains no credentials, raw staff id, conversation id, message id, webhook, or message body.
 
+In the DingTalk developer console, create an **internal enterprise application**, add the robot extension inside that application, and keep the robot in **Stream mode**. Copy the application's Client ID (AppKey) and Client Secret (AppSecret); do not use the legacy standalone-robot entry. See DingTalk's official [robot creation](https://opensource.dingtalk.com/developerpedia/docs/explore/tutorials/stream/bot/nodejs/create-bot/) and [Node Stream bot](https://opensource.dingtalk.com/developerpedia/docs/explore/tutorials/stream/bot/nodejs/build-bot/) guides.
+
 Clone the repository and install its locked dependencies without lifecycle scripts:
 
 ```sh
@@ -43,10 +45,18 @@ cd relayloom
 npm ci --ignore-scripts --registry=https://registry.npmjs.org
 ```
 
-Set `DINGTALK_CLIENT_ID`, `DINGTALK_CLIENT_SECRET`, and `RELAYLOOM_ALLOWED_USER` in the process environment without placing the secret in a committed file or shell-history command, then run:
+Read the Client ID, Client Secret, and allowed sender staff id interactively so none of them enters shell history, then run:
 
 ```sh
+printf 'DingTalk Client ID: '
+IFS= read -r DINGTALK_CLIENT_ID
+printf 'DingTalk Client Secret: '
+IFS= read -r -s DINGTALK_CLIENT_SECRET
+printf '\nAllowed sender staff id: '
+IFS= read -r RELAYLOOM_ALLOWED_USER
+export DINGTALK_CLIENT_ID DINGTALK_CLIENT_SECRET RELAYLOOM_ALLOWED_USER
 npm run tenant:smoke
+unset DINGTALK_CLIENT_ID DINGTALK_CLIENT_SECRET RELAYLOOM_ALLOWED_USER
 ```
 
 Send the exact random challenge printed by the process to the internal robot. The default wait is 180 seconds. Use `RELAYLOOM_PROBE_REPORT` for a new workspace-relative report path; an existing report is never overwritten. This command makes real DingTalk network calls and is never run by installation, DSH boot, tests, or CI.

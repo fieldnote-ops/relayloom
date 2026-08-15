@@ -35,6 +35,8 @@ RelayLoom 是一个独立、默认关闭的外部聊天中继。首个兼容适�
 
 0.2.3 提供一个显式启用的探针，在不调用模型或 DSH Agent 的前提下补齐传输证据。它只等待一个已配置 staff 账号发来的随机挑战，立即 ACK Stream 回调，发送一条有界 `sessionWebhook` 回复，并新建权限为 `0600` 的 JSON 报告。报告不记录凭据、原始 staff id、会话 id、消息 id、Webhook 或消息正文。
 
+在钉钉开发者后台创建**企业内部应用**，在该应用内部添加机器人扩展，并保持机器人为 **Stream 模式**。从应用信息页复制 Client ID（AppKey）与 Client Secret（AppSecret）；不要使用旧版独立机器人入口。详见钉钉官方的[创建机器人](https://opensource.dingtalk.com/developerpedia/docs/explore/tutorials/stream/bot/nodejs/create-bot/)与 [Node Stream 机器人](https://opensource.dingtalk.com/developerpedia/docs/explore/tutorials/stream/bot/nodejs/build-bot/)说明。
+
 先克隆仓库，并在禁用生命周期脚本的情况下安装锁定依赖：
 
 ```sh
@@ -43,10 +45,18 @@ cd relayloom
 npm ci --ignore-scripts --registry=https://registry.npmjs.org
 ```
 
-在进程环境中设置 `DINGTALK_CLIENT_ID`、`DINGTALK_CLIENT_SECRET`、`RELAYLOOM_ALLOWED_USER`；不要把 secret 写入已提交文件或会进入 shell 历史的命令。然后运行：
+通过交互读取 Client ID、Client Secret 和允许发送者的 staff id，避免任何一个值进入 shell 历史，然后运行：
 
 ```sh
+printf 'DingTalk Client ID: '
+IFS= read -r DINGTALK_CLIENT_ID
+printf 'DingTalk Client Secret: '
+IFS= read -r -s DINGTALK_CLIENT_SECRET
+printf '\n允许发送者 staff id: '
+IFS= read -r RELAYLOOM_ALLOWED_USER
+export DINGTALK_CLIENT_ID DINGTALK_CLIENT_SECRET RELAYLOOM_ALLOWED_USER
 npm run tenant:smoke
+unset DINGTALK_CLIENT_ID DINGTALK_CLIENT_SECRET RELAYLOOM_ALLOWED_USER
 ```
 
 从该 staff 账号向企业内部机器人发送进程打印的精确随机挑战。默认等待 180 秒；可用 `RELAYLOOM_PROBE_REPORT` 指定新的工作区相对报告路径，已有报告绝不会被覆盖。该命令会真实访问钉钉，但安装、DSH 启动、测试和 CI 都不会自动运行它。
